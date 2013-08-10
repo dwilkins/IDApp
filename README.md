@@ -9,5 +9,3 @@ Rails 4 app for Innovation Depo
 * rails s
 * PROFIT
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
