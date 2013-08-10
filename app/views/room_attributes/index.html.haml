@@ -1,0 +1,22 @@
+%h1 Room Attributes
+.pagination.pagination-small.pagination-centered
+  = paginate @room_attributes
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Abbreviation
+      %th
+      %th
+      %th
+  %tbody
+    - @room_attributes.each do |room_attribute|
+      %tr
+        %td= room_attribute.name
+        %td= room_attribute.abbreviation
+        %td= link_to 'Show', room_attribute
+        %td= link_to 'Edit', edit_room_attribute_path(room_attribute)
+        %td= link_to 'Destroy', room_attribute, method: :delete, data: { confirm: 'Are you sure?' }
+.pagination.pagination-small.pagination-centered
+  = paginate @room_attributes
+= link_to 'New Room attribute', new_room_attribute_path

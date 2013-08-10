@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @tenant.name
+%p
+  %b Abbreviation:
+  = @tenant.abbreviation
+%p
+  %b Primary contact:
+  = @tenant.primary_contact
+
+= link_to 'Edit', edit_tenant_path(@tenant)
+\|
+= link_to 'Back', tenants_path

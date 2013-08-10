@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Room:
+  = @room_room_attribute_link.room_id
+%p
+  %strong Room attribute:
+  = @room_room_attribute_link.room_attribute_id
+%p
+  %strong Start date:
+  = @room_room_attribute_link.start_date
+%p
+  %strong End date:
+  = @room_room_attribute_link.end_date
+= link_to 'Edit', edit_room_room_attribute_link_path(@room_room_attribute_link)
+|
+\#{link_to 'Back', room_room_attribute_links_path}

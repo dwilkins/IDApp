@@ -1,0 +1,9 @@
+= simple_form_for(@room_room_attribute_link) do |f|
+  = f.error_notification
+  .inputs
+    = f.input :room_id
+    = f.input :room_attribute_id
+    = f.input :start_date
+    = f.input :end_date
+  .actions
+    = f.button :submit

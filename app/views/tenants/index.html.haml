@@ -1,0 +1,23 @@
+%h1 Tenants
+.pagination.pagination-small.pagination-centered
+  = paginate @tenants
+%table.table.table-striped.table-hover
+  %tr
+    %th.tenant-name Name
+    %th.tenant-abbreviation Abbreviation
+    %th.tenant-contact Primary contact
+    %th.tenant-show
+    %th.tenant-edit
+    %th.tenant-destroy
+  %tbody
+  - @tenants.each do |tenant|
+    %tr
+      %td.tenant-name= tenant.name
+      %td.tenant-abbreviation= tenant.abbreviation
+      %td.tenant-contact= tenant.primary_contact
+      %td.tenant-show= link_to 'Show', tenant
+      %td.tenant-edit= link_to 'Edit', edit_tenant_path(tenant)
+      %td.tenant-destroy= link_to 'Destroy', tenant, :method => :delete, :data => { :confirm => 'Are you sure?' }
+.pagination.pagination-small.pagination-centered
+  = paginate @tenants
+= link_to 'New Tenant', new_tenant_path

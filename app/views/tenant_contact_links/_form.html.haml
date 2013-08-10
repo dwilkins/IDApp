@@ -1,0 +1,9 @@
+= simple_form_for(@tenant_contact_link) do |f|
+  = f.error_notification
+  .inputs
+    = f.input :tenant_id
+    = f.input :contact_id
+    = f.input :start_date
+    = f.input :end_date
+  .actions
+    = f.button :submit

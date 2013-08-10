@@ -1,0 +1,26 @@
+%h1 Listing room_room_attribute_links
+.pagination.pagination-small.pagination-centered
+  = paginate @room_room_attribute_links
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Room
+      %th Room attribute
+      %th Start date
+      %th End date
+      %th
+      %th
+      %th
+  %tbody
+    - @room_room_attribute_links.each do |room_room_attribute_link|
+      %tr
+        %td= room_room_attribute_link.room_id
+        %td= room_room_attribute_link.room_attribute_id
+        %td= room_room_attribute_link.start_date
+        %td= room_room_attribute_link.end_date
+        %td= link_to 'Show', room_room_attribute_link
+        %td= link_to 'Edit', edit_room_room_attribute_link_path(room_room_attribute_link)
+        %td= link_to 'Destroy', room_room_attribute_link, method: :delete, data: { confirm: 'Are you sure?' }
+.pagination.pagination-small.pagination-centered
+  = paginate @room_room_attribute_links
+= link_to 'New Room room attribute link', new_room_room_attribute_link_path

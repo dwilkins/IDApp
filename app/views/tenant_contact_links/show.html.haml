@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Tenant:
+  = @tenant_contact_link.tenant_id
+%p
+  %strong Contact:
+  = @tenant_contact_link.contact_id
+%p
+  %strong Start date:
+  = @tenant_contact_link.start_date
+%p
+  %strong End date:
+  = @tenant_contact_link.end_date
+= link_to 'Edit', edit_tenant_contact_link_path(@tenant_contact_link)
+|
+\#{link_to 'Back', tenant_contact_links_path}

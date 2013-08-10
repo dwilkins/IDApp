@@ -1,0 +1,22 @@
+%h1 Rooms
+.pagination.pagination-small.pagination-centered
+  = paginate @rooms
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Name
+      %th Other names
+      %th
+      %th
+      %th
+  %tbody
+    - @rooms.each do |room|
+      %tr
+        %td= room.name
+        %td= room.other_names
+        %td= link_to 'Show', room
+        %td= link_to 'Edit', edit_room_path(room)
+        %td= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' }
+.pagination.pagination-small.pagination-centered
+  = paginate @rooms
+= link_to 'New Room', new_room_path

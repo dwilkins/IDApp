@@ -1,0 +1,2 @@
+module RoomRoomAttributeLinksHelper
+end

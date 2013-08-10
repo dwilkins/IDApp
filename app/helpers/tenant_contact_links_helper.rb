@@ -1,0 +1,2 @@
+module TenantContactLinksHelper
+end

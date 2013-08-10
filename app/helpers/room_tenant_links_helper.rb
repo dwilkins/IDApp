@@ -1,0 +1,2 @@
+module RoomTenantLinksHelper
+end

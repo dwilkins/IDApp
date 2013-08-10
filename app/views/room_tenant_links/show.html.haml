@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Room:
+  = @room_tenant_link.room_id
+%p
+  %strong Tenant:
+  = @room_tenant_link.tenant_id
+%p
+  %strong Start date:
+  = @room_tenant_link.start_date
+%p
+  %strong End date:
+  = @room_tenant_link.end_date
+= link_to 'Edit', edit_room_tenant_link_path(@room_tenant_link)
+|
+\#{link_to 'Back', room_tenant_links_path}

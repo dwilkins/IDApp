@@ -1,0 +1,10 @@
+= simple_form_for(@tenant) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :abbreviation
+    = f.association :primary_contact, label_method: :name, id_method: :primary_contact_id
+
+  .form-actions
+    = f.button :submit

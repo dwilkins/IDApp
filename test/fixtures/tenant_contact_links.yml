@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tenant_id: 1
+  contact_id: 1
+  start_date: 2013-08-10 13:44:08
+  end_date: 2013-08-10 13:44:08
+
+two:
+  tenant_id: 1
+  contact_id: 1
+  start_date: 2013-08-10 13:44:08
+  end_date: 2013-08-10 13:44:08

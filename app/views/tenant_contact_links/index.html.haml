@@ -1,0 +1,23 @@
+%h1 Listing tenant_contact_links
+%table
+  %thead
+    %tr
+      %th Tenant
+      %th Contact
+      %th Start date
+      %th End date
+      %th
+      %th
+      %th
+  %tbody
+    - @tenant_contact_links.each do |tenant_contact_link|
+      %tr
+        %td= tenant_contact_link.tenant_id
+        %td= tenant_contact_link.contact_id
+        %td= tenant_contact_link.start_date
+        %td= tenant_contact_link.end_date
+        %td= link_to 'Show', tenant_contact_link
+        %td= link_to 'Edit', edit_tenant_contact_link_path(tenant_contact_link)
+        %td= link_to 'Destroy', tenant_contact_link, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Tenant contact link', new_tenant_contact_link_path
