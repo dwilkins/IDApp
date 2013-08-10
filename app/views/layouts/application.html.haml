@@ -13,11 +13,19 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand{href: link_to(root_path)} Innovation Depot
+          %a.brand{href: root_path}Innovation Depot
           .nav-collapse.collapse
-            %ul.nav.nav-pills
-              = primary_nav_element "Rooms", rooms_path, 'rooms'
-              = primary_nav_element 'Tenants',tenants_path, 'tenants'
-              = primary_nav_element 'Contacts',contacts_path, 'contacts'
-    .container-fluid
+            - if !current_user.nil?
+              %ul.nav.nav-pills
+                = primary_nav_element "Rooms", rooms_path, 'rooms'
+                = primary_nav_element 'Tenants',tenants_path, 'tenants'
+                = primary_nav_element 'Contacts',contacts_path, 'contacts'
+              %ul.nav.nav-pills.pull-right
+                %li= link_to 'logout', destroy_user_session_path, method: :delete
+    .container
+      .row
+        -if notice
+          %p.notice= notice
+        -if alert
+          %p.alert= alert
       = yield

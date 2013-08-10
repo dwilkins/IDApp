@@ -55,3 +55,4 @@ gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git'
 gem 'pry'
 
 gem 'haml-rails'
+gem 'devise'

@@ -183,4 +183,7 @@ input_data.each do |seed|
   room.room_attributes << hood_attribute if seed[:hoods]
   room.save
 
+  u = User.create(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+  u.confirm! if u
+
 end

@@ -1,4 +1,7 @@
 IDApp::Application.routes.draw do
+#  devise_for :users
+
+  devise_for :users
   resources :tenant_contact_links
 
   resources :room_tenant_links

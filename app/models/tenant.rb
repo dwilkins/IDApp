@@ -1,6 +1,7 @@
 class Tenant < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_uniqueness_of :abbreviation, allow_nil: true
+  validates_presence_of :name
 #  validates_presence_of :primary_contact_id
 
   has_many :rooms, through: :room_tenant_links
