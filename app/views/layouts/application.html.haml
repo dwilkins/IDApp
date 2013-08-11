@@ -14,7 +14,9 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand{href: root_path}Innovation Depot
+          %a.brand{href: root_path}
+            = image_tag 'idlogo-small.png'
+            Innovation Depot
           .nav-collapse.collapse
             - if !current_user.nil?
               %ul.nav.nav-pills
