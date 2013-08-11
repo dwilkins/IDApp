@@ -68,14 +68,30 @@
       continuousWorld: false
       zoomReverse: false
 
+
     window.map = L.map "map", map_options
+
+    attrib = L.control.attribution({
+        position: 'bottomleft',
+        prefix: window.navbar_html
+        }).addTo(window.map)
+
+    attrib = L.control.attribution({
+        position: 'topright',
+        prefix: window.logo_html
+        }).addTo(window.map)
+
 
     tile_layer = new L.TileLayer '/assets/map-tiles/{z}/map_{x}_{y}.png',layer_options
     tile_layer.addTo(window.map)
-
     window.map.setView [4096,4096],1
-    L.control.layers({"Tile Layer": tile_layer}).addTo(window.map)
+    # L.control.layers({"Tile Layer": tile_layer}).addTo(window.map)
 
 
   jQuery ->
-    window.map_init()
+    jQuery.get '/maps/navbar', (data)->
+      window.navbar_html = data
+      jQuery.get '/maps/logo', (data)->
+        window.logo_html = data
+        window.map_init()
+

@@ -3,4 +3,12 @@ class MapsController < ApplicationController
 
   def index
   end
+
+  def navbar
+    render partial: 'application/navbar'
+  end
+
+  def logo
+    render partial: 'application/logo'
+  end
 end

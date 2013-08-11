@@ -1,5 +1,7 @@
 IDApp::Application.routes.draw do
   get "maps/index"
+  get "maps/navbar"
+  get "maps/logo"
 #  devise_for :users
 
   devise_for :users
