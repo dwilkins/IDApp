@@ -4,6 +4,7 @@
     %title IDApp
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0"}
     = csrf_meta_tags
   %body
     .navbar
@@ -20,8 +21,11 @@
                 = primary_nav_element "Rooms", rooms_path, 'rooms'
                 = primary_nav_element 'Tenants',tenants_path, 'tenants'
                 = primary_nav_element 'Contacts',contacts_path, 'contacts'
-              %ul.nav.nav-pills.pull-right
+            %ul.nav.nav-pills.pull-right
+              - if !current_user.nil?
                 %li= link_to 'logout', destroy_user_session_path, method: :delete
+              - else
+                %li= link_to 'login', new_user_session_path
     .container
       .row
         -if notice
