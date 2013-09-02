@@ -1,4 +1,5 @@
 IDApp::Application.routes.draw do
+  get "map_extract/extract"
   get "maps/index"
   get "maps/navbar"
   get "maps/logo"
