@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 8192 8192"
+     version="1.1">
+<g id="surface0">
+<g id="room_M08">
+<rect width="1398.5898" height="1010.801" x="1.8127675" y="1097.1863" id="M08" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15682">Lab M08</title>
+</rect>
+</g>
+<rect width="1391.3435" height="996.30927" x="1.8127675" y="2118.8564" id="M07" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15699">Lab M07</title>
+</rect>
+<path d="m 715.52781,3441.3182 0,166.6846 -681.054156,0 0,506.9631 1373.336846,0 0,-506.9631 -11.2285,0 0,-166.6846 -681.05419,0 z" id="rect15701" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none" />
+<rect width="1373.2271" height="1007.178" x="30.799095" y="4115.0977" id="M05" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none" />
+<rect width="1369.6038" height="989.06342" x="30.799095" y="5140.3906" id="M04" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15716">Lab M04</title>
+</rect>
+<rect width="1362.3572" height="1028.9158" x="41.669044" y="6129.4536" id="M03" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15720">Lab M03</title>
+</rect>
+<rect width="1380.4736" height="1003.5552" x="41.669044" y="7158.3691" id="M02" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15724">Lab M02</title>
+</rect>
+<path d="m 1403.9237,82.57943 0,801.0363 319.1497,0 0,228.00387 1401.8401,0 0,-228.00387 -32.3901,0 0,-801.0363 -1688.5997,0 z" id="N01" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15733">Lab N01</title>
+</path>
+<rect width="1380.4736" height="999.93219" x="1726.499" y="1097.1863" id="N02" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15737">Lab N02</title>
+</rect>
+<rect width="1362.3572" height="1014.424" x="1733.7456" y="2097.1187" id="N03" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+<title id="title15741">Lab N03</title>
+</rect>
+<rect width="1351.4873" height="688.35913" x="1733.7456" y="3433.9844" id="L09" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15745">Lab L09</title>
+</rect>
+<rect width="1365.9805" height="1021.6698" x="1722.8757" y="4115.0977" id="L08" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15749">Lab L08</title>
+</rect>
+<rect width="1376.8503" height="1003.5552" x="1722.8757" y="5140.3906" id="L07" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15753">Lab L07</title>
+</rect>
+<rect width="1384.0969" height="652.1297" x="1712.006" y="6143.9453" id="L06" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15757">Lab L06</title>
+</rect>
+<path d="m 1723.0734,7132.9944 0,210.299 -304.4662,0 0,800.6045 336.8562,0 0,-3.8865 851.6416,0 0,-1007.017 -884.0316,0 z" id="M01" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15764">Lab M01 and Offices</title>
+</path>
+<rect width="1018.1445" height="1594.095" x="3088.8564" y="1517.4479" id="N04" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15787">Lab N04</title>
+</rect>
+<rect width="989.15833" height="1630.3242" x="4110.624" y="1488.4641" id="N05" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15791">Lab N05</title>
+</rect>
+<rect width="699.29504" height="1568.7341" x="5085.2891" y="1513.8246" id="N06" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15795">Lab N06</title>
+</rect>
+<rect width="373.19891" height="684.73621" x="3088.8564" y="3430.3613" id="L10" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15799">Elec L10</title>
+</rect>
+<rect width="398.56195" height="681.11322" x="3447.562" y="3433.9844" id="L11" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15803">Elec L11</title>
+</rect>
+<path d="m 3846.1312,3433.9771 0,680.9888 -760.9495,0 0,1228.1118 760.9495,0 0,22.0231 246.1642,0 0,-1931.1237 -246.1642,0 z" id="L12" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15810">Mechanical L12</title>
+</path>
+<rect width="1003.6515" height="1449.1771" x="3085.2332" y="5339.6523" id="L05" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15814">Lab L05</title>
+</rect>
+<rect width="1702.9465" height="673.86731" x="4088.8843" y="3433.9844" id="L13" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15818">Lab L13</title>
+</rect>
+<rect width="1724.6863" height="1028.9158" x="4059.8982" y="4100.606" id="L14" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15822">Lab L14</title>
+</rect>
+<rect width="1717.4397" height="579.67084" x="4085.2612" y="5125.8989" id="L15" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15826">Lab L15</title>
+</rect>
+<rect width="681.17859" height="681.11322" x="5099.7822" y="6122.208" id="L01" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15830">Conf L01</title>
+</rect>
+<rect width="518.13049" height="865.88336" x="4592.5215" y="5705.5698" id="L04" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15834">Mens Room L04</title>
+</rect>
+<rect width="510.88394" height="869.50629" x="4085.2612" y="5698.3232" id="L03" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15838">Womens Room L03</title>
+</rect>
+<rect width="673.93201" height="427.50723" x="5110.6523" y="5694.7007" id="L16" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15842">Break Room l16</title>
+</rect>
+<rect width="1590.6244" height="1068.7681" x="6567.2153" y="1031.9733" id="P06" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15846">Office P06</title>
+</rect>
+<path d="m 6070.6778,2082.7951 0,1025.1538 1047.2774,0 0,507.3949 1039.9355,0 0,-507.3949 21.5934,0 0,-1025.1538 -2108.8063,0 z" id="P05" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15853">Office P05</title>
+</path>
+<rect width="1061.6241" height="489.09726" x="6070.8247" y="3107.9197" id="P04" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15857">Office P04</title>
+</rect>
+<rect width="1058.0009" height="532.57257" x="6063.5771" y="3593.394" id="P03" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15861">Office P03</title>
+</rect>
+<rect width="1398.5898" height="1079.6371" x="5.4359794" y="39.287025" id="M09" style="opacity:0.49283244;fill:#888;fill-opacity:1;stroke:none">
+  <title id="title15678">
+    Lab M09
+  </title>
+</rect>
+</g>
+</svg>

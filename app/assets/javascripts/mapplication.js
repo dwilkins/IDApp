@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require twitter/bootstrap
-//= require_tree ./leaflet
-//= require_tree ./maps
+//= require ./maps/proj4.js
+//= require openlayers-rails
+//= require ./maps/maps.js

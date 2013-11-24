@@ -48,7 +48,7 @@ end
 gem 'therubyracer'  # If using Ruby
 gem 'jquery-rails'  # If using Bootstrap's JS plugins.
 
-gem 'less-rails-bootstrap', git: 'https://github.com/metaskills/less-rails-bootstrap.git'
+gem 'less-rails-bootstrap'
 
 gem 'kaminari'
 gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git'
@@ -56,3 +56,4 @@ gem 'pry'
 
 gem 'haml-rails'
 gem 'devise'
+gem 'openlayers-rails'
