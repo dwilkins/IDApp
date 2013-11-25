@@ -1,15 +1,17 @@
 .navbar.maps
   .navbar-inner
     .container
-      %a.brand{href: root_path}
+      %a.brand.pull-left{href: root_path}
         = image_tag 'idlogo-small.png'
-      - if !current_user.nil?
-        %ul.nav.nav-pills
-          = primary_nav_element "Rooms", rooms_path, 'rooms'
-          = primary_nav_element 'Tenants',tenants_path, 'tenants'
-          = primary_nav_element 'Contacts',contacts_path, 'contacts'
-      %ul.nav.nav-pills.pull-right
+      %ul.nav.nav-pills
         - if !current_user.nil?
-          %li= link_to 'logout', destroy_user_session_path, method: :delete
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
+              Edit
+            %ul.dropdown-menu{role: "menu"}
+              = primary_nav_element "Rooms", rooms_path, 'rooms'
+              = primary_nav_element 'Tenants',tenants_path, 'tenants'
+              = primary_nav_element 'Contacts',contacts_path, 'contacts'
+              %li= link_to 'logout', destroy_user_session_path, method: :delete
         - else
           %li= link_to 'login', new_user_session_path

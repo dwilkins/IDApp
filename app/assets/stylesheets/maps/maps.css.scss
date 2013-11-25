@@ -21,14 +21,22 @@ html, body {
     margin-bottom: 2px;
 }
 
-.leaflet-top.leaflet-right {
-    .leaflet-control-attribution.leaflet-control {
-        background-color: rgba(255,255,255,0);
-        border: none;
-        box-shadow: none;
-    }
-}
 
-#id-logo {
-    opacity: 1;
+.olControlAttribution {
+    #id-logo {
+        position: fixed;
+        opacity: 1;
+        right: 0px;
+        margin-right: 30px;
+        top: 20px;
+    }
+    .navbar.maps {
+        position: fixed;
+        opacity: 1;
+        left: 0px;
+        bottom: 0px;
+        .container {
+            width: 450px;
+        }
+    }
 }

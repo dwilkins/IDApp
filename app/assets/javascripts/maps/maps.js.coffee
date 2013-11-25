@@ -27,125 +27,125 @@
       fillOpacity: 0.5
     )
 
-  polygon_layer = new OpenLayers.Layer.Vector("Polygon Layer",
-    {styleMap: handle_styles});
+  id_rooms= new OpenLayers.Layer.XYZ("InnovationDepot","/assets/map-tiles/${z}/map_${x}_${y}.png",
+    isBaseLayer: true
+    numZoomLevels: 6
+    maxExtent: new OpenLayers.Bounds(0,0,8192,8192)
+    maxResolution:8192 / 256,
+    numZoomLevels: 6
+    projection: 'longlat'
+    )
+
+  polygon_layer = new OpenLayers.Layer.Vector("Polygon Layer"
+    styleMap: handle_styles
+    attribution: window.logo_html
+    )
 
   transient_features = []
 
+  handles = []
+
+  geojson = new OpenLayers.Format.GeoJSON()
+
   onFeatureSelect = (feature) ->
-    if feature.attributes.handles == undefined
+    if feature.attributes.user_added == undefined
       return
-    bounds = feature.geometry.getVertices()
+    if handles[feature.id] == undefined
+      add_handles(feature)
     window.draw_control.deactivate()
-    for handle in feature.attributes.handles
+    for handle in handles[feature.id]
       handle.layer.drawFeature(handle, "handle")
   onFeatureUnselect = (feature) ->
-    if feature.attributes.handles == undefined
-      if feature.attributes.is_handle != undefined
-        for handle in feature.attributes.parent.attributes.handles
+    if feature.attributes.user_added == undefined
+      if feature.attributes.is_handle == 1
+        feature_parent_id = feature.attributes.parent_id
+        for handle in handles[feature_parent_id]
           handle.layer.drawFeature(handle, "invisible")
-      return
-    window.draw_control.activate()
-    for handle in feature.attributes.handles
-      handle.layer.drawFeature(handle, "invisible")
+    else
+      window.draw_control.activate()
+      for handle in handles[feature.id]
+        polygon_layer.drawFeature(handle, "invisible")
 
   onFeatureDrag = (feature,pixel) ->
-    if feature.attributes.is_handle == undefined
-      for handle in feature.attributes.handles
+    if !feature.attributes.is_handle
+      for handle in handles[feature.id]
         handle.layer.drawFeature(handle, "handle")
-      return
-    centroid = feature.geometry.getCentroid()
-    feature.layer.drawFeature(feature.attributes.parent,"default")
+    else
+      x_mirror = feature.attributes.x_mirror
+      y_mirror = feature.attributes.y_mirror
+      x_mirror.geometry.x = feature.geometry.x
+      y_mirror.geometry.y = feature.geometry.y
+      feature.layer.drawFeature(polygon_layer.getFeatureById(feature.attributes.parent_id),"default")
+  onFeatureDragComplete = (feature,pixel) ->
+    serialize()
+
   onFeatureAdded = (feature) ->
-    bounds = feature.geometry.getVertices()
     feature.attributes.user_added = 1
-    feature.attributes.handles = [
-      new OpenLayers.Feature.Vector(bounds[0], { type: "square",})
-      new OpenLayers.Feature.Vector(bounds[1], { type: "square" })
-      new OpenLayers.Feature.Vector(bounds[2], { type: "square" })
-      new OpenLayers.Feature.Vector(bounds[3], { type: "square" })
-      ]
-    polygon_layer.addFeatures(feature.attributes.handles)
-    for handle in feature.attributes.handles
-      handle.attributes.is_handle = 1
-      handle.attributes.parent = feature
-      handle.layer.drawFeature(handle, "invisible")
   onClick = (evt) ->
     msg = "click " + evt.xy
     console.log(msg)
   onDblclick = (evt) ->
     msg = "dblclick " + evt.xy
+    serialize()
     console.log(msg)
+
+  add_handles = (feature) ->
+    bounds = feature.geometry.getVertices()
+    handles[feature.id] = [
+      new OpenLayers.Feature.Vector(bounds[0], { type: "square" })
+      new OpenLayers.Feature.Vector(bounds[1], { type: "square" })
+      new OpenLayers.Feature.Vector(bounds[2], { type: "square" })
+      new OpenLayers.Feature.Vector(bounds[3], { type: "square" })
+      ]
+    polygon_layer.addFeatures(handles[feature.id])
+    new_handles = handles[feature.id]
+    new_handles[0].attributes.x_mirror = new_handles[1]
+    new_handles[1].attributes.x_mirror = new_handles[0]
+    new_handles[2].attributes.x_mirror = new_handles[3]
+    new_handles[3].attributes.x_mirror = new_handles[2]
+
+    new_handles[0].attributes.y_mirror = new_handles[3]
+    new_handles[1].attributes.y_mirror = new_handles[2]
+    new_handles[2].attributes.y_mirror = new_handles[1]
+    new_handles[3].attributes.y_mirror = new_handles[0]
+    for handle in handles[feature.id]
+      handle.attributes.is_handle = 1
+      handle.attributes.parent_id = feature.id
+      handle.layer.drawFeature(handle, "invisible")
+  serialize = ->
+    return
+    for handle in handles
+      polygon_layer.destroyFeatures(handle)
+    handles = []
+    for feature in polygon_layer.features
+      mystr = geojson.write(feature,true)
+      console.log("GeoJSON String: ")
+      console.log(mystr)
+
+
   window.map_init = ->
     map = new OpenLayers.Map(
       div: "map",
-      displayProjection: 'longlat',
-      projection: 'longlat',
-      numZoomLevels: 6,
+      displayProjection: 'longlat'
+      projection: 'longlat'
+      numZoomLevels: 6
       controls:[
-        new OpenLayers.Control.MousePosition(),
-        new OpenLayers.Control.Navigation(),
-        new OpenLayers.Control.PanZoomBar(),
-        new OpenLayers.Control.LayerSwitcher(),
-        new OpenLayers.Control.Attribution()
-      ],
-    )
-
-    OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control,
-      defaultHandlerOptions:
-        {
-          'single': true
-          'double': false
-          'pixelTolerance': 0
-          'stopSingle': false
-          'stopDouble': false
-        }
-      initialize:(options) ->
-        this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions)
-        OpenLayers.Control.prototype.initialize.apply(this, arguments )
-        this.handler = new OpenLayers.Handler.Click(
-          this,
-            {
-              'click': this.onClick
-              'dblclick': this.onDblclick
-            }
-          this.handlerOptions
-          )
-      onClick: (evt) =>
-        msg = "click " + evt.xy
-        console.log(msg)
-      onDblclick: (evt) =>
-        msg = "dblclick " + evt.xy
-        console.log(msg)
-    )
-    id_rooms= new OpenLayers.Layer.XYZ("InnovationDepot","/assets/map-tiles/${z}/map_${x}_${y}.png",
-      {
-        isBaseLayer: true
-        numZoomLevels: 6
-        maxExtent: new OpenLayers.Bounds(0,0,8192,8192)
-        maxResolution:8192 / 256,
-        numZoomLevels: 6
-        projection: 'longlat'
-      }
+        new OpenLayers.Control.MousePosition()
+        new OpenLayers.Control.Navigation()
+        new OpenLayers.Control.PanZoomBar()
+        new OpenLayers.Control.LayerSwitcher()
+        new OpenLayers.Control.Attribution(" | ", "${layers}" )
+      ]
     )
 
 
-#    svg_layer = new OpenLayers.Layer.ScalableInlineXhtml(
-#      "SVG Layer",
-#      '/assets/InnovationDepotSecondFloorRooms.svg',
-#      new OpenLayers.Bounds(0,0,8192,8192),
-#      null
-#      {
-#        visibility:  false
-#        isBaseLayer: false
-#        numZoomLevels: 6
-#        projection: 'longlat'
-#      }
-#    )
 
-    click_hander = new OpenLayers.Handler.Click(null,{single: onClick, double: onDblclick }, {map: map})
+    polyOptions =
+      sides: 4
+      snapToggle: "altKey"
+      irregular: true
+      keyMask: OpenLayers.Handler.MOD_SHIFT
 
-    polyOptions = {sides: 4, snapToggle: "altKey", irregular: true, keyMask: OpenLayers.Handler.MOD_SHIFT };
     window.draw_control = new OpenLayers.Control.DrawFeature(
       polygon_layer,
       OpenLayers.Handler.RegularPolygon,
@@ -153,13 +153,14 @@
         featureAdded: onFeatureAdded
     )
 
-    map.addControl(window.draw_control);
-    window.draw_control.activate();
+    map.addControl(window.draw_control)
+    window.draw_control.activate()
 
     dragFeature = new OpenLayers.Control.DragFeature(polygon_layer,
       onDrag: onFeatureDrag
+      onComplete: onFeatureDragComplete
       )
-    map.addControl(dragFeature);
+    map.addControl(dragFeature)
     dragFeature.activate()
 
     selectControl =
@@ -171,20 +172,22 @@
     map.addControl(selectControl)
     selectControl.activate()
 
-#    modifyControl = new OpenLayers.Control.ModifyFeature(polygon_layer)
-#    modifyControl.mode = OpenLayers.Control.ModifyFeature.RESIZE | OpenLayers.Control.ModifyFeature.DRAG
-#    map.addControl(modifyControl)
-#    modifyControl.activate()
-#    controls ={ "single": new OpenLayers.Control.Click( {handlerOptions: "single": true } ) }
-#    map.addControl(controls["single"])
+    snap = new OpenLayers.Control.Snapping(
+      layer: polygon_layer
+      targets: [polygon_layer]
+      greedy: false
+      )
+    snap.activate()
+
     map.addLayers([id_rooms,polygon_layer])
     map.setCenter(new OpenLayers.LonLat(4096, 4096), 2)
-#    map.setCenter(new OpenLayers.LonLat(4096, 4096), 2)
     map.zoomToMaxExtent()
 
   jQuery ->
     jQuery.get '/maps/navbar', (data)->
       window.navbar_html = data
+      id_rooms.attribution = data
       jQuery.get '/maps/logo', (data)->
         window.logo_html = data
+        polygon_layer.attribution = data
         window.map_init()
