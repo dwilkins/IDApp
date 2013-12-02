@@ -1,0 +1,15 @@
+= simple_form_for(@baselayer,input_html: {class: 'form-horizontal', role: 'form'}) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :image, as: :file
+    = f.input :width
+    = f.input :height
+    = f.input :zoomlevels
+    = f.input :tilesize
+    = f.input :name
+    = f.input :description
+    = f.input :domain
+
+  .form-actions
+    = f.button :submit

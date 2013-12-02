@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130810232639) do
+ActiveRecord::Schema.define(version: 20131130052759) do
+
+  create_table "baselayers", force: true do |t|
+    t.string   "image"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "zoomlevels"
+    t.integer  "tilesize"
+    t.string   "name"
+    t.text     "description"
+    t.string   "domain"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "contacts", force: true do |t|
     t.string   "name"

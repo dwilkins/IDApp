@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Image:
+  = @baselayer.image
+%p
+  %b Width:
+  = @baselayer.width
+%p
+  %b Height:
+  = @baselayer.height
+%p
+  %b Zoomlevels:
+  = @baselayer.zoomlevels
+%p
+  %b Tilesize:
+  = @baselayer.tilesize
+%p
+  %b Name:
+  = @baselayer.name
+%p
+  %b Description:
+  = @baselayer.description
+%p
+  %b Domain:
+  = @baselayer.domain
+
+= link_to 'Edit', edit_baselayer_path(@baselayer)
+\|
+= link_to 'Back', baselayers_path

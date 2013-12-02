@@ -1,0 +1,33 @@
+%h1 Listing baselayers
+
+%table
+  %tr
+    %th Image
+    %th Width
+    %th Height
+    %th Zoomlevels
+    %th Tilesize
+    %th Name
+    %th Description
+    %th Domain
+    %th
+    %th
+    %th
+
+  - @baselayers.each do |baselayer|
+    %tr
+      %td= baselayer.image
+      %td= baselayer.width
+      %td= baselayer.height
+      %td= baselayer.zoomlevels
+      %td= baselayer.tilesize
+      %td= baselayer.name
+      %td= baselayer.description
+      %td= baselayer.domain
+      %td= link_to 'Show', baselayer
+      %td= link_to 'Edit', edit_baselayer_path(baselayer)
+      %td= link_to 'Destroy', baselayer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Baselayer', new_baselayer_path

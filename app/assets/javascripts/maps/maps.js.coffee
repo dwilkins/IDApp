@@ -62,6 +62,7 @@
         for handle in handles[feature_parent_id]
           handle.layer.drawFeature(handle, "invisible")
     else
+      add_handles(feature) if handles[feature.id] == undefined
       window.draw_control.activate()
       for handle in handles[feature.id]
         polygon_layer.drawFeature(handle, "invisible")
@@ -81,6 +82,7 @@
 
   onFeatureAdded = (feature) ->
     feature.attributes.user_added = 1
+    feature.attributes.id = feature.id
   onClick = (evt) ->
     msg = "click " + evt.xy
     console.log(msg)
@@ -113,14 +115,11 @@
       handle.attributes.parent_id = feature.id
       handle.layer.drawFeature(handle, "invisible")
   serialize = ->
-    return
-    for handle in handles
-      polygon_layer.destroyFeatures(handle)
-    handles = []
     for feature in polygon_layer.features
-      mystr = geojson.write(feature,true)
-      console.log("GeoJSON String: ")
-      console.log(mystr)
+      if feature.attributes.user_added
+        mystr = geojson.write(feature,true)
+        console.log("GeoJSON String: ")
+        console.log(mystr)
 
 
   window.map_init = ->

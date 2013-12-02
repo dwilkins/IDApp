@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  image: MyString
+  width: 1
+  height: 1
+  zoomlevels: 1
+  tilesize: 1
+  name: MyString
+  description: MyText
+  domain: MyString
+
+two:
+  image: MyString
+  width: 1
+  height: 1
+  zoomlevels: 1
+  tilesize: 1
+  name: MyString
+  description: MyText
+  domain: MyString

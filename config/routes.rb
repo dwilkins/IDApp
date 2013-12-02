@@ -1,4 +1,6 @@
 IDApp::Application.routes.draw do
+  resources :baselayers
+
   get "map_extract/extract"
   get "maps/index"
   get "maps/navbar"
