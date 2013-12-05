@@ -78,11 +78,14 @@
       y_mirror.geometry.y = feature.geometry.y
       feature.layer.drawFeature(polygon_layer.getFeatureById(feature.attributes.parent_id),"default")
   onFeatureDragComplete = (feature,pixel) ->
-    serialize()
+    if feature.attributes.remote_id
+      update_feature(feature)
+    else if feature.attributes.is_handle
+      update_feature(polygon_layer.getFeatureById(feature.attributes.parent_id))
 
   onFeatureAdded = (feature) ->
     feature.attributes.user_added = 1
-    feature.attributes.id = feature.id
+    add_feature(feature)
   onClick = (evt) ->
     msg = "click " + evt.xy
     console.log(msg)
@@ -114,6 +117,27 @@
       handle.attributes.is_handle = 1
       handle.attributes.parent_id = feature.id
       handle.layer.drawFeature(handle, "invisible")
+
+  update_feature = (feature) ->
+    mystr = geojson.write(feature,true)
+    $.ajax
+      url: "/geometries/" + feature.attributes.remote_id + ".json"
+      type: "PATCH"
+      contentType: "application/json"
+      data: JSON.stringify({"geometry": {"geometry": mystr}})
+      success: (data,textStatus) ->
+        alert(textStatus) if textStatus != "success"
+
+  add_feature = (feature) ->
+    mystr = geojson.write(feature,true)
+    $.post "/geometries.json",
+      {
+        "geometry":
+          "geometry": mystr
+      }
+      (data,textStatus) ->
+        feature.attributes.remote_id  = data.id
+
   serialize = ->
     for feature in polygon_layer.features
       if feature.attributes.user_added
@@ -121,7 +145,15 @@
         console.log("GeoJSON String: ")
         console.log(mystr)
 
-
+  load_geometries = ->
+    $.get( "/geometries.json", ( data ) ->
+      polygon_layer.addFeatures(
+        for geometry in data
+          f = geojson.read(geometry.geometry,"Feature")
+          f.attributes.remote_id = geometry.id
+          f
+      )
+    )
   window.map_init = ->
     map = new OpenLayers.Map(
       div: "map",
@@ -181,6 +213,11 @@
     map.addLayers([id_rooms,polygon_layer])
     map.setCenter(new OpenLayers.LonLat(4096, 4096), 2)
     map.zoomToMaxExtent()
+
+    load_geometries()
+
+
+
 
   jQuery ->
     jQuery.get '/maps/navbar', (data)->

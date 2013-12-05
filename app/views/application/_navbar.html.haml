@@ -3,15 +3,11 @@
     .container
       %a.brand.pull-left{href: root_path}
         = image_tag 'idlogo-small.png'
-      %ul.nav.nav-pills
+      %ul.nav.nav-pills.navbar-nav
         - if !current_user.nil?
-          %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-              Edit
-            %ul.dropdown-menu{role: "menu"}
-              = primary_nav_element "Rooms", rooms_path, 'rooms'
-              = primary_nav_element 'Tenants',tenants_path, 'tenants'
-              = primary_nav_element 'Contacts',contacts_path, 'contacts'
-              %li= link_to 'logout', destroy_user_session_path, method: :delete
+          = primary_nav_element "Rooms", rooms_path, 'rooms'
+          = primary_nav_element 'Tenants',tenants_path, 'tenants'
+          = primary_nav_element 'Contacts',contacts_path, 'contacts'
+          %li= link_to 'logout', destroy_user_session_path, method: :delete
         - else
           %li= link_to 'login', new_user_session_path

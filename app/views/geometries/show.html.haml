@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Room:
+  = @geometry.room_id
+%p
+  %b Geometry:
+  = @geometry.geometry
+
+= link_to 'Edit', edit_geometry_path(@geometry)
+\|
+= link_to 'Back', geometries_path

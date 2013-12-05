@@ -1,4 +1,6 @@
 IDApp::Application.routes.draw do
+  resources :geometries
+
   resources :baselayers
 
   get "map_extract/extract"

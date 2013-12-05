@@ -1,0 +1,9 @@
+= simple_form_for(@geometry) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :room_id
+    = f.input :geometry
+
+  .form-actions
+    = f.button :submit
