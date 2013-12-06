@@ -1,6 +1,6 @@
 class GeometriesController < ApplicationController
   before_action :set_geometry, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: [:index]
   # GET /geometries
   # GET /geometries.json
   def index
