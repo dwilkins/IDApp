@@ -16,4 +16,5 @@
 //= require twitter/bootstrap
 //= require ./maps/proj4.js
 //= require openlayers-rails
+//= require ./maps/baselayer.js
 //= require ./maps/maps.js
