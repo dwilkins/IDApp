@@ -27,7 +27,7 @@ window.BaseLayer = class BaseLayer
       styleMap: @handle_styles
       attribution: window.logo_html
     )
-
+    @room_geometries = []
     if not @map_name
       @map_name = $("#map").data("map_name")
     if not @tiles_dir
@@ -54,7 +54,11 @@ window.BaseLayer = class BaseLayer
           f.attributes.remote_id = geometry.id
           f
       )
+      @add_decoration()
     )
+
+  add_decoration: ->
+    return
 
   createMap: ->
     @ol_map = new OpenLayers.Map(

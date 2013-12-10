@@ -1,6 +1,8 @@
 window.BaseLayer = class EditableBaseLayer extends BaseLayer
   constructor: (@map_name, @map_domain, @tiles_dir) ->
     @handles = []
+    @markers = []
+    @markers_layer = new OpenLayers.Layer.Markers( "Markers" );
     super(@map_name, @map_domain, @tiles_dir)
 
   onFeatureSelect: (feature) =>
@@ -27,12 +29,16 @@ window.BaseLayer = class EditableBaseLayer extends BaseLayer
     if !feature.attributes.is_handle?
       for handle in @handles[feature.id]
         handle.layer.drawFeature(handle, "handle")
+      if @room_geometries[feature.id]?
+        @room_geometries[feature.id].sync_marker(@ol_map)
     else
       x_mirror = feature.attributes.x_mirror
       y_mirror = feature.attributes.y_mirror
       x_mirror.geometry.x = feature.geometry.x
       y_mirror.geometry.y = feature.geometry.y
-      feature.layer.drawFeature(feature.layer.getFeatureById(feature.attributes.parent_id),"default")
+      rg = @room_geometries[feature.attributes.parent_id]
+#      feature.layer.drawFeature(feature.layer.getFeatureById(feature.attributes.parent_id),"default")
+      rg.sync_marker(@ol_map)
   onFeatureDragComplete: (feature,pixel) =>
     if feature.attributes.remote_id?
       @update_feature(feature)
@@ -41,13 +47,24 @@ window.BaseLayer = class EditableBaseLayer extends BaseLayer
 
   onFeatureAdded: (feature) =>
     feature.attributes.user_added = 1
-    @add_feature(feature)
+    rg = new RoomGeometry(feature)
+    @room_geometries[feature.id] = rg
+    @serialize_feature(feature)
+    rg.add_marker(@marker_layer)
   onClick: (evt) =>
     msg = "click " + evt.xy
     console.log(msg)
   onDblclick = (evt) =>
     msg = "dblclick " + evt.xy
     console.log(msg)
+
+  old_add_marker: (feature) ->
+    bounds = feature.geometry.getVertices()
+    size = new OpenLayers.Size(32,32);
+    offset = new OpenLayers.Pixel(-3,-2);
+    icon = new OpenLayers.Icon('<%= asset_path "plus32.png" %>',size,offset);
+    @markers[feature.id] = new OpenLayers.Marker(new OpenLayers.LonLat([bounds[1].x,bounds[1].y]).add(32,-32),icon)
+    @markers_layer.addMarker(@markers[feature.id])
 
   add_handles: (feature) ->
     bounds = feature.geometry.getVertices()
@@ -83,7 +100,7 @@ window.BaseLayer = class EditableBaseLayer extends BaseLayer
       success: (data,textStatus) ->
         alert(textStatus) if textStatus != "nocontent"
 
-  add_feature: (feature) ->
+  serialize_feature: (feature) ->
     mystr = @geojson.write(feature,true)
     $.post "/geometries.json",
       {
@@ -93,8 +110,17 @@ window.BaseLayer = class EditableBaseLayer extends BaseLayer
       (data,textStatus) ->
         feature.attributes.remote_id  = data.id
 
+  add_decoration: ->
+    super()
+    @ol_map.addLayers([@markers_layer])
+    for feature in @polygon_layer.features
+      rg = new RoomGeometry(feature)
+      @room_geometries[feature.id] = rg
+      rg.add_marker(@markers_layer)
+
 
   createMap: ->
+
     super()
     polyOptions =
       sides: 4

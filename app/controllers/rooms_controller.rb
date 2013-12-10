@@ -15,6 +15,10 @@ class RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
+    respond_to do |format|
+      format.html
+      format.json { render "new.html", layout: false }
+    end
   end
 
   # GET /rooms/1/edit

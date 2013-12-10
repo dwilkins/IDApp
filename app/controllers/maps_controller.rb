@@ -1,8 +1,6 @@
 class MapsController < ApplicationController
   skip_before_action :authenticate_user!
   layout "maps"
-  def index
-  end
 
   def navbar
     render partial: 'application/navbar'
