@@ -1,0 +1,47 @@
+window.RoomGeometry = class RoomGeometry
+  constructor: (@feature)->
+    @markers = []
+    @handles = []
+  add_handles: ->
+    bounds = @feature.geometry.getVertices()
+    @handles = [
+      new OpenLayers.Feature.Vector(bounds[0], { type: "square" })
+      new OpenLayers.Feature.Vector(bounds[1], { type: "square" })
+      new OpenLayers.Feature.Vector(bounds[2], { type: "square" })
+      new OpenLayers.Feature.Vector(bounds[3], { type: "square" })
+      ]
+    feature.layer.addFeatures(@handles[feature.id])
+    @handles[0].attributes.x_mirror = @handles[1]
+    @handles[1].attributes.x_mirror = @handles[0]
+    @handles[2].attributes.x_mirror = @handles[3]
+    @handles[3].attributes.x_mirror = @handles[2]
+
+    @handles[0].attributes.y_mirror = @handles[3]
+    @handles[1].attributes.y_mirror = @handles[2]
+    @handles[2].attributes.y_mirror = @handles[1]
+    @handles[3].attributes.y_mirror = @handles[0]
+    for handle in @handles
+      handle.attributes.is_handle = 1
+      handle.attributes.parent_id = feature.id
+      handle.layer.drawFeature(handle, "invisible")
+
+
+  sync_marker: (ol_map) ->
+    bounds = @feature.geometry.getVertices()
+    @markers[0].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[1].x,bounds[1].y])))
+    @markers[1].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[2].x,bounds[2].y])))
+    @feature.layer.drawFeature(@feature,"default")
+
+  add_marker: (layer) ->
+    bounds = @feature.geometry.getVertices()
+    size = new OpenLayers.Size(16,16);
+    edit_offset = new OpenLayers.Pixel(0,0);
+    move_offset = new OpenLayers.Pixel(-size.w,0);
+    edit_icon = new OpenLayers.Icon('<%= asset_path "icons/plus32.png" %>',size,edit_offset);
+    move_icon = new OpenLayers.Icon('<%= asset_path "icons/move32.png" %>',size,move_offset);
+    @markers[0] = new OpenLayers.Marker(new OpenLayers.LonLat([bounds[1].x,bounds[1].y]),edit_icon)
+    @markers[1] = new OpenLayers.Marker(new OpenLayers.LonLat([bounds[2].x,bounds[2].y]),move_icon)
+    layer.addMarker(@markers[0])
+    layer.addMarker(@markers[1])
+  get_marker: ->
+    @marker
