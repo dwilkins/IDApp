@@ -2,7 +2,31 @@ window.RoomGeometry = class RoomGeometry
   constructor: (@feature)->
     @markers = []
     @handles = []
+
   add_handles: ->
+    bounds = @feature.geometry.getVertices()
+    size = new OpenLayers.Size(16,16);
+    offset = new OpenLayers.Pixel(-3,-2);
+    nw_offset = new OpenLayers.Pixel(-size.w,-size.h);
+    ne_offset = new OpenLayers.Pixel(0,-size.h);
+    sw_offset = new OpenLayers.Pixel(-size.w,0);
+    se_offset = new OpenLayers.Pixel(0,0);
+    @handles = [
+      new OpenLayers.Marker(new OpenLayers.LonLat([bounds[0].x,bounds[0].y]),new OpenLayers.Icon('<%= asset_path "icons/swarrow32.png" %>',size,sw_offset))
+      new OpenLayers.Marker(new OpenLayers.LonLat([bounds[1].x,bounds[1].y]),new OpenLayers.Icon('<%= asset_path "icons/nwarrow32.png" %>',size,nw_offset))
+      new OpenLayers.Marker(new OpenLayers.LonLat([bounds[2].x,bounds[2].y]),new OpenLayers.Icon('<%= asset_path "icons/nearrow32.png" %>',size,ne_offset))
+      new OpenLayers.Marker(new OpenLayers.LonLat([bounds[3].x,bounds[3].y]),new OpenLayers.Icon('<%= asset_path "icons/searrow32.png" %>',size,se_offset))
+    ]
+  draw_handles: (layer) ->
+    if @handles.length == 0
+      @add_handles()
+    for handle in @handles
+      layer.addMarker(handle) if handle
+
+  erase_handles: (layer) ->
+    for handle in @handles
+      layer.removeMarker(handle) if handle
+  old_add_handles: ->
     bounds = @feature.geometry.getVertices()
     @handles = [
       new OpenLayers.Feature.Vector(bounds[0], { type: "square" })
@@ -25,20 +49,25 @@ window.RoomGeometry = class RoomGeometry
       handle.attributes.parent_id = feature.id
       handle.layer.drawFeature(handle, "invisible")
 
-
   sync_marker: (ol_map) ->
     bounds = @feature.geometry.getVertices()
     @markers[0].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[1].x,bounds[1].y])))
     @markers[1].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[2].x,bounds[2].y])))
+
+    @handles[0].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[0].x,bounds[0].y])))
+    @handles[1].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[1].x,bounds[1].y])))
+    @handles[2].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[2].x,bounds[2].y])))
+    @handles[3].moveTo(ol_map.getPixelFromLonLat(new OpenLayers.LonLat([bounds[3].x,bounds[3].y])))
+
     @feature.layer.drawFeature(@feature,"default")
 
   add_marker: (layer) ->
     bounds = @feature.geometry.getVertices()
-    size = new OpenLayers.Size(16,16);
-    edit_offset = new OpenLayers.Pixel(0,0);
-    move_offset = new OpenLayers.Pixel(-size.w,0);
-    edit_icon = new OpenLayers.Icon('<%= asset_path "icons/plus32.png" %>',size,edit_offset);
-    move_icon = new OpenLayers.Icon('<%= asset_path "icons/move32.png" %>',size,move_offset);
+    size = new OpenLayers.Size(16,16)
+    edit_offset = new OpenLayers.Pixel(0,0)
+    move_offset = new OpenLayers.Pixel(-size.w,0)
+    edit_icon = new OpenLayers.Icon('<%= asset_path "icons/plus32.png" %>',size,edit_offset)
+    move_icon = new OpenLayers.Icon('<%= asset_path "icons/move32.png" %>',size,move_offset)
     @markers[0] = new OpenLayers.Marker(new OpenLayers.LonLat([bounds[1].x,bounds[1].y]),edit_icon)
     @markers[1] = new OpenLayers.Marker(new OpenLayers.LonLat([bounds[2].x,bounds[2].y]),move_icon)
     layer.addMarker(@markers[0])
